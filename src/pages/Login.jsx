@@ -2,47 +2,100 @@ import React, { useState } from "react";
 import AuthLayout from "../components/ AuthLayout";
 import '../components/AuthLayout.css'
 
-
 const Login = ({ onFormSwitch }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
-  })
-  const [showPassword, setShowPassword] = useState(false)
+  });
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
-    })
-  }
+    });
+    if (error) setError('');
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('Login data:', formData)
-  }
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+  
+    // ایمیل و رمز عبور پیش‌فرض
+    const validCredentials = {
+      email: 'test@example.com',
+      password: 'password123'
+    };
+  
+    // شبیه‌سازی پردازش سرور
+    setTimeout(() => {
+      if (formData.email === validCredentials.email && 
+          formData.password === validCredentials.password) {
+        
+        // ذخیره اطلاعات
+        const userData = {
+          email: formData.email,
+          name: 'John Doe',
+          token: 'fake-jwt-token-' + Date.now()
+        };
+        
+        localStorage.setItem('user', JSON.stringify(userData));
+        localStorage.setItem('token', userData.token);
+        
+        console.log('Login successful!');
+        
+        // هدایت به dashboard با timeout کوتاه
+        setTimeout(() => {
+          window.location.href = '/dashboard';
+        }, 500);
+        
+      } else if (!formData.email || !formData.password) {
+        setError('Please enter both email and password');
+      } else {
+        setError('Invalid email or password. Try: test@example.com / password123');
+      }
+      setLoading(false);
+    }, 1000);
+  };
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword)
-  }
+    setShowPassword(!showPassword);
+  };
+
+  // اگر کاربر قبلاً لاگین کرده، به dashboard هدایت کن
+  React.useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      window.location.href = '/dashboard';
+    }
+  }, []);
 
   return (
     <AuthLayout>
       <div className="auth-form-container">
         <div className="auth-header">
           <h2>Welcome back to <span className="brand-accent">STAR LINK</span></h2>
-          <p className="auth-subtitle">Sign in to your account to continue</p>
         </div>
+
+        {error && (
+          <div className="error-alert">
+            <span className="error-icon">⚠️</span>
+            <span>{error}</span>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
-            <label className="form-label">Enter your email</label>
+            <label className="form-label">Email</label>
             <input 
               type="email" 
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="form-input" 
+              className={`form-input ${error ? 'input-error' : ''}`}
               placeholder="Enter your email"
               required 
             />
@@ -56,7 +109,7 @@ const Login = ({ onFormSwitch }) => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="form-input password-input" 
+                className={`form-input password-input ${error ? 'input-error' : ''}`}
                 placeholder="Enter your password"
                 required 
               />
@@ -81,32 +134,48 @@ const Login = ({ onFormSwitch }) => {
               </button>
             </div>
             <div className="forgot-password-container">
-              <button 
-                type="button"
-                className="forgot-password-link"
-                onClick={() => onFormSwitch('reset')}
-              >
-                Forgot password?
-              </button>
+              <div className="form-options">
+                <label className="checkbox-container">
+                  <input type="checkbox" />
+                  <span className="checkmark"></span>
+                  Remember me
+                </label>
+                <button 
+                  type="button"
+                  className="forgot-password-link"
+                  onClick={() => onFormSwitch('reset')}
+                >
+                  Forgot password?
+                </button>
+              </div>
             </div>
           </div>
 
-          <div className="form-options">
-            <label className="checkbox-container">
-              <input type="checkbox" />
-              <span className="checkmark"></span>
-              Remember me
-            </label>
-          </div>
-
-          <button type="submit" className="btn-primary">
-            Sign In
+          <button 
+            type="submit" 
+            className="btn-primary"
+            disabled={loading}
+          >
+            {loading ? (
+              <>
+                <span className="loading-spinner"></span>
+                Logging in...
+              </>
+            ) : (
+              'Login'
+            )}
           </button>
         </form>
 
+        <div className="demo-credentials">
+          <p className="demo-title">Demo Credentials:</p>
+          <p>Email: <strong>test@example.com</strong></p>
+          <p>Password: <strong>password123</strong></p>
+        </div>
+
         <div className="google-section">
           <div className="divider">
-            <span>Or continue with</span>
+            <span>Or</span>
           </div>
           
           <button type="button" className="btn-google">
@@ -116,7 +185,7 @@ const Login = ({ onFormSwitch }) => {
               <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
               <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
             </svg>
-            Google
+            continue with google
           </button>
         </div>
 
@@ -128,7 +197,7 @@ const Login = ({ onFormSwitch }) => {
               className="auth-link"
               onClick={() => onFormSwitch('register')}
             >
-              Create account
+              Get Started
             </button>
           </p>
         </div>

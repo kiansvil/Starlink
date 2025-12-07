@@ -10,7 +10,7 @@ const AuthLayout = ({ children }) => {
 
       <div className="auth-right">
         <div className="overlay"></div>
-        <img src="/src/assets/Frame 1405.jpg" alt="bg" className="auth-bg" />
+        <img src="/src/assets/Frame 1405.svg" alt="bg" className="auth-bg" />
       </div>
     </div>
   );
