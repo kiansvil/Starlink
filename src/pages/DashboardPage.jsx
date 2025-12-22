@@ -1,25 +1,40 @@
+// DashboardPage.jsx - کد نهایی اصلاح شده
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Layout/Sidebar';
 import Header from '../components/Layout/Header';
-import MeetingCard from '../components/Dashboard/MeetingCard';
+import FutureMeetingCard from '../components/Dashboard/FutureMeetingCard';
+import WeeklyMeetingCard from '../components/Dashboard/WeeklyMeetingCard';
 import AccountTab from '../components/Dashboard/AccountTab';
+import PaymentPage from '../components/Dashboard/PaymentPage'; 
+import FavoritesPage from '../components/Dashboard/FavoritesPage';
+import PasswordTab from '../components/Dashboard/PasswordTab'; // ⬅️ ایمپورت PasswordTab
 import './DashboardPage.css';
 
+
+
+import emiliaImage from '../assets/emilia.jpg';
+import harryImage from '../assets/harry.png';
+import tomImage from '../assets/clark.jpg';
+import emilia2Image from '../assets/clarke.jpg';
 const DashboardPage = ({ onLogout }) => {
   const [user, setUser] = useState(null);
-  const [meetings, setMeetings] = useState([]);
+  const [weeklyMeetings, setWeeklyMeetings] = useState([]); 
+  const [futureMeetings, setFutureMeetings] = useState([]); 
+  const [favorites, setFavorites] = useState([]); 
   const [isLoading, setIsLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('meetings'); // 'meetings' یا 'account'
+  // activeTab می‌تواند: 'meetings', 'payments', 'favorites', 'account', 'password' باشد.
+  const [activeTab, setActiveTab] = useState('meetings'); 
+  // 💥 جدید: State برای مدیریت حالت باز و بسته بودن Sidebar در موبایل
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  
+  // 💥 جدید: تابع Toggle برای Sidebar
+  const toggleSidebar = () => {
+    setIsMobileOpen(prev => !prev);
+  };
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+
     const userData = localStorage.getItem('user');
-    
-    if (!token) {
-      window.location.href = '/login';
-      return;
-    }
-    
     if (userData) {
       try {
         setUser(JSON.parse(userData));
@@ -28,42 +43,64 @@ const DashboardPage = ({ onLogout }) => {
       }
     }
     
-    const sampleMeetings = [
-      {
-        id: 1,
-        title: "Meeting 1",
-        date: "8 October",
-        time: "7:50 PM",
-        with: "lain Alan",
-        status: "upcoming"
-      },
-      {
-        id: 2,
-        title: "Meeting 2",
-        date: "8 October",
-        time: "7:50 PM",
-        with: "lain Alan",
-        status: "upcoming"
-      },
-      {
-        id: 3,
-        title: "Meeting 3",
-        date: "8 October",
-        time: "7:50 PM",
-        with: "lain Alan",
-        status: "upcoming"
-      },
-      {
-        id: 4,
-        title: "Meeting 4",
-        date: "8 October",
-        time: "7:50 PM",
-        with: "lain Alan",
-        status: "upcoming"
-      }
+
+    // --- داده‌های نمونه ---
+    const sampleWeekly = [
+        { id: 101, name: "Serena Williams", role: "Athlete", platform: "Zoom", timeRange: "19:30 BST - 23:00 BST", day: "Thursday", date: "8", monthYear: "December 2021", meetingNumber: 3 },
+        { id: 102, name: "Taylor Swift", role: "Singer", platform: "Zoom", timeRange: "19:30 BST - 23:00 BST", day: "Thursday", date: "12", monthYear: "December 2021", meetingNumber: 3 },
+        { id: 103, name: "Lucy Hale", role: "Actor", platform: "Zoom", timeRange: "19:30 BST - 23:00 BST", day: "Thursday", date: "24", monthYear: "December 2021", meetingNumber: 3 },
+    ];
+
+    const sampleFuture = [
+        { id: 1, title: "Meeting 1", date: "8 October", time: "7:50 PM", with: "lain Alan" },
+        { id: 2, title: "Meeting 2", date: "8 October", time: "7:50 PM", with: "lain Alan" },
+        { id: 3, title: "Meeting 3", date: "8 October", time: "7:50 PM", with: "lain Alan" },
+        { id: 4, title: "Meeting 4", date: "8 October", time: "7:50 PM", with: "lain Alan" }
     ];
     
-    setMeetings(sampleMeetings);
+    const sampleFavorites = [
+        { 
+            id: 1, 
+            name: "emilia clarke", 
+            role: "Actor", 
+            cost: "$178", 
+            rating: 4.5, 
+            imageUrl: emiliaImage, // ⬅️ استفاده از متغیر ایمپورت شده 
+            tags: ["Game of thrones", "Resident evil exinction"] 
+        },
+        { 
+            id: 2, 
+            name: "Harry styles", 
+            role: "Singer", 
+            cost: "$178", 
+            rating: 5, 
+            imageUrl: harryImage, // ⬅️ استفاده از متغیر ایمپورت شده 
+            tags: ["My cousin rachel", "Jack taylor"] 
+        },
+        { 
+            id: 3, 
+            name: "Tom Hardy", 
+            role: "Actor", 
+            cost: "$178", 
+            rating: 3, 
+            imageUrl: tomImage, // ⬅️ استفاده از متغیر ایمپورت شده 
+            tags: ["Danton abbey", "My cousin rachel"] 
+        },
+        { 
+            id: 4, 
+            name: "emilia clarke", 
+            role: "Actor", 
+            cost: "$178", 
+            rating: 4, 
+            imageUrl: emilia2Image, // ⬅️ استفاده از متغیر ایمپورت شده 
+            tags: ["Resident evil exinction", "Jack taylor"] 
+        },
+    ];
+
+
+    setWeeklyMeetings(sampleWeekly);
+    setFutureMeetings(sampleFuture);
+    setFavorites(sampleFavorites); 
     setIsLoading(false);
   }, []);
 
@@ -78,10 +115,19 @@ const DashboardPage = ({ onLogout }) => {
   };
 
   const handleTabChange = (tabName) => {
-    setActiveTab(tabName);
+    // ⬅️ حالا activeTab مستقیماً به 'account' یا 'password' تنظیم می‌شود
+    if (tabName === 'account' || tabName === 'password') {
+        setActiveTab(tabName);
+    } else if (tabName === 'payments') {
+        setActiveTab('payments'); 
+    } else if (tabName === 'favorites') {
+        setActiveTab('favorites'); 
+    } else {
+        setActiveTab('meetings'); 
+    }
   };
-
-  if (isLoading) {
+  
+  if (isLoading || !user) {
     return (
       <div className="loading-container">
         <div className="loading-spinner"></div>
@@ -90,61 +136,100 @@ const DashboardPage = ({ onLogout }) => {
     );
   }
 
-  if (!user) {
-    return (
-      <div className="error-container">
-        <h3>Session expired</h3>
-        <p>Please login again</p>
-        <button onClick={handleLogout}>Go to Login</button>
-      </div>
-    );
+  // ⬅️ تعیین عنوان Header بر اساس activeTab
+  let headerTitle = "My Meeting";
+  if (activeTab === 'account') {
+    headerTitle = "Setting (Account)";
+  } else if (activeTab === 'password') { // ⬅️ شرط جدید برای Password
+    headerTitle = "Setting (Change password)";
+  } else if (activeTab === 'payments') {
+    headerTitle = "Payment"; 
+  } else if (activeTab === 'favorites') {
+    headerTitle = "Favorite"; 
   }
+
 
   return (
     <div className="dashboard-container">
       <Sidebar 
-        activePage={activeTab === 'account' ? 'accounts' : 'dashboard'}
+    
+        activePage={activeTab} 
         onLogout={handleLogout}
         userName={user.name || user.email || 'User'}
         onNavigate={handleTabChange}
+        isMobileOpen={isMobileOpen}       // ⬅️ جدید
+        toggleSidebar={toggleSidebar}
       />
       
-      <div className="dashboard-main">
+      <div className="dashboard-main-wrapper">
         <Header 
-          title={activeTab === 'account' ? "Setting (Account)" : "My Meeting"} 
+          title={headerTitle} 
           user={user} 
+          onMenuToggle={toggleSidebar}
         />
         
-      
-        
         <div className="dashboard-content">
-          {activeTab === 'meetings' ? (
-            <>
-              <div className="meetings-section">
+          
+          {/* --- رندرینگ Setting Tabs --- */}
+          {activeTab === 'account' ? (
+            <AccountTab user={user} />
+          ) : activeTab === 'password' ? ( // ⬅️ رندر PasswordTab
+            <PasswordTab />
+          ) : 
+          
+          /* --- رندرینگ سایر Tabs --- */
+          activeTab === 'favorites' ? (
+            <FavoritesPage favorites={favorites} />
+          ) : activeTab === 'payments' ? (
+            <PaymentPage /> 
+          ) : activeTab === 'meetings' ? (
+            <div className={`meetings-layout ${weeklyMeetings.length === 0 ? 'empty-state-layout' : ''}`}>
+              
+              {/* بخش جلسات هفتگی (سمت چپ) */}
+              <div className="weekly-meetings-column">
+                
+                {weeklyMeetings.length > 0 ? (
+                  <>
+                    <div className="weekly-header">
+                       
+                        <h2 className="section-title weekly-title">This week meeting</h2>
+                        <span className="weekly-date-range">14-21 October</span>
+                    </div>
+                    {weeklyMeetings.map(meeting => (
+                      <WeeklyMeetingCard 
+                        key={meeting.id}
+                        meeting={meeting}
+                      />
+                    ))}
+                  </>
+                ) : (
+                  // حالت خالی (Empty State) 
+                  <div className="empty-state">
+                    <div className="empty-graphic">
+                        <div className="empty-moon-graphic"></div> 
+                    </div>
+                    <div className="empty-text">
+                        <h3>No meeting available this week</h3>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* بخش Future Meeting (سمت راست) */}
+              <div className="future-meetings-column">
                 <h2 className="section-title">Future meeting</h2>
-                <div className="meetings-grid">
-                  {meetings.map(meeting => (
-                    <MeetingCard 
+                <div className="future-meetings-list">
+                  {futureMeetings.map(meeting => (
+                    <FutureMeetingCard 
                       key={meeting.id}
                       meeting={meeting}
                     />
                   ))}
                 </div>
               </div>
-
-              <div className="empty-section">
-                <div className="empty-state">
-                  <div className="empty-icon">📅</div>
-                  <h3>No meeting available this week</h3>
-                  <p>You don't have any meetings scheduled for this week</p>
-                  <button className="btn-secondary">
-                    Schedule New Meeting
-                  </button>
-                </div>
-              </div>
-            </>
+            </div>
           ) : (
-            <AccountTab user={user} />
+            <div className="info-message">Tab not implemented yet.</div>
           )}
         </div>
       </div>

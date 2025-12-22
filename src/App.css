@@ -1,11 +1,43 @@
-#root {
-  width: 100%;
-  height: 100%;
+/* DashboardPage.css (استایل‌های Layout) */
+
+:root {
+  --sidebar-width: 250px;
+  --main-bg: #1e1f24; /* رنگ پس‌زمینه محتوای اصلی */
 }
 
-/* Remove default margins and padding */
-body, html {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+/* Container اصلی که مدیریت Margin را انجام می‌دهد */
+.dashboard-layout-container {
+  /* در دسکتاپ: برای محتوای اصلی Margin ایجاد می‌کند */
+  margin-left: var(--sidebar-width); 
+  min-height: 100vh;
+  background: var(--main-bg); 
+  transition: margin-left 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content-wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content-wrapper {
+  flex-grow: 1;
+  padding: 2rem; /* پدینگ پیش‌فرض دسکتاپ */
+}
+
+
+/* ------------------------------------ */
+/* ری‌اسپانسیو (Tablet/Mobile) - Max 1024px */
+/* ------------------------------------ */
+@media (max-width: 1024px) {
+  
+  .dashboard-layout-container {
+      margin-left: 0; /* حذف Margin در نماهای کوچک */
+  }
+  
+  .page-content-wrapper {
+      padding: 1rem; /* کاهش پدینگ در موبایل */
+  }
 }

@@ -1,71 +1,212 @@
+/* DashboardPage.css */
+
+/* --- ساختار اصلی --- */
 .dashboard-container {
     display: flex;
     min-height: 100vh;
-    background-color:  #17181D;
-  }
-  
-  .dashboard-main {
+    background-color: #17181D; /* پس‌زمینه اصلی تیره */
+    color: white; /* متن پیش‌فرض سفید */
+}
+
+.dashboard-main {
     flex: 1;
     display: flex;
     flex-direction: column;
-  }
-  
-  .dashboard-content {
+}
+
+.dashboard-content {
     flex: 1;
-    padding: 1rem;
+    padding: 1.5rem 2rem; /* پدینگ استاندارد برای محتوا */
     overflow-y: auto;
-  }
-  
-  .section-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    color: #333;
-  }
-  
-  .meetings-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-  }
-  
-  .empty-section {
-    background: rgb(212, 15, 15);
-    border-radius: 12px;
-    padding: 3rem 2rem;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  }
-  
-  .empty-state .empty-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-  }
-  
-  .empty-state h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    color: #333;
-  }
-  
-  .empty-state p {
-    color: #666;
-    margin-bottom: 1.5rem;
-  }
-  
-  .btn-secondary {
-    padding: 10px 24px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
+}
+
+.section-title {
+    font-size: 1rem; /* در تصویر، عنوان‌ها کوچک‌ترند */
     font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
+    color: rgba(255, 255, 255, 0.7); /* رنگ عنوان خاکستری روشن */
+    margin-bottom: 1.5rem;
+}
+
+/* --- چیدمان جلسات (Meetings Layout) --- */
+.meetings-layout {
+    display: grid;
+   
   
-  .btn-secondary:hover {
-    background-color: #0056b3;
-  }
+    grid-template-columns: 2fr 1fr; /* ستون چپ بزرگتر از ستون راست */
+    gap: 3rem;
+}
+
+/* --- ستون جلسات هفتگی (Weekly Meetings Column) --- */
+.weekly-meetings-column {
+    max-width: 28.563rem; 
+}
+
+.weekly-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.weekly-header .weekly-date-icon {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+    color: #4CAF50; /* یک رنگ متمایز */
+}
+
+.weekly-header .weekly-title {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;
+}
+
+.weekly-header .weekly-date-range {
+    margin-left: 1rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+
+/* --- ستون جلسات آینده (Future Meetings Column) --- */
+.future-meetings-column {
+    /* یک ستون مجزا برای جلسات آینده */
+    padding: 1.5rem;
+    background: #1B1D23; /* پس‌زمینه تیره متمایز */
+    border-radius: 12px;
+}
+
+.future-meetings-column .section-title {
+    margin-bottom: 1rem;
+    padding-left: 0;
+}
+
+.future-meetings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 500px; /* برای ایجاد اسکرول مانند تصویر */
+    overflow-y: auto;
+    padding-right: 0.5rem; /* فضای اسکرول */
+}
+
+/* استایل اسکرول بار برای ستون Future Meetings */
+.future-meetings-list::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
+}
+
+.future-meetings-list::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1); /* نوار اسکرول ظریف */
+}
+
+
+/* --- حالت خالی (Empty State - تصویر بالا) --- */
+.empty-state-layout {
+    grid-template-columns: 1.5fr 1fr; /* کمی تغییر برای تمرکز روی حالت خالی */
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 400px; /* حداقل ارتفاع برای حالت خالی */
+}
+
+.empty-graphic {
+    /* شبیه‌سازی گرافیک ماه و آدم خوابیده */
+    position: relative;
+    width: 250px;
+    height: 250px;
+}
+
+/* شبیه‌سازی ماه (دایره بزرگ سفید) */
+.empty-moon-graphic {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background-color: white;
+    border-radius: 50%;
+    top: 50px;
+    left: 50px;
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+}
+
+/* شبیه‌سازی آدم خوابیده و Zzz (برای جزئیات بیشتر به SVG نیاز دارید، در اینجا ساده‌سازی شده است) */
+.empty-text {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.empty-text h3 {
+    font-size: 2rem;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 0.5rem;
+}
+
+.empty-text p {
+    color: rgba(255, 255, 255, 0.5);
+    display: none; /* پاراگراف اضافی در تصویر نیست */
+}
+
+/* دکمه در حالت خالی دیده نمی‌شود */
+.btn-secondary {
+    display: none; 
+}
+
+.dashboard-layout-container {
+    margin-left: var(--sidebar-width); /* فضای Sidebar */
+    min-height: 100vh;
+    background: var(--main-bg); 
+    transition: margin-left 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column; /* برای اینکه Header بالای Content قرار گیرد */
+}
+
+.dashboard-main-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-content {
+    flex-grow: 1;
+    padding: 2rem; /* پدینگ پیش‌فرض دسکتاپ */
+}
+
+/* --- Meetings Layout --- */
+.meetings-layout {
+    display: grid;
+    grid-template-columns: minmax(400px, 45%) minmax(350px, 55%);
+    gap: 30px;
+ 
+}
+
+/* ------------------------------------ */
+/* ری‌اسپانسیو (Tablet/Mobile) - Max 1024px */
+/* ------------------------------------ */
+@media (max-width: 1024px) {
+    
+    /* حذف Margin برای Sidebar در نماهای کوچک */
+    .dashboard-layout-container {
+        margin-left: 0; 
+    }
+    
+    .dashboard-content {
+        padding: 1rem; 
+    }
+
+    .meetings-layout {
+        grid-template-columns: 1fr; 
+        gap: 20px;
+    }
+    
+    .weekly-meetings-column, 
+    .future-meetings-column {
+        width: 100%;
+        max-width: 100%;
+    }
+}

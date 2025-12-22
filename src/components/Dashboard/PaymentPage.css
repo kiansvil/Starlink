@@ -1,0 +1,160 @@
+/* PaymentPage.css */
+
+.payment-page {
+  padding: 1rem 0;
+}
+
+
+.payment-filters {
+  display: flex;
+  align-items: center;
+  gap: 15px; 
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+
+}
+.date-range-filter{
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  border: 1px solid white;
+  padding: 9px 22px;
+  border-radius: 4px;
+}
+.weekly-filter{
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  border: 1px solid white;
+  padding: 5px 22px;
+  border-radius: 4px;
+}
+.sort-label {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+  margin-right: 5px;
+}
+
+/* --- استایل مشترک Input/Select Box --- */
+.filter-input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px solid #6C757D;
+  background-color: #1F2128;
+  border-radius: 4px;
+  color: #CED4DA;
+  font-weight: 500;
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
+
+.filter-input-box:hover {
+  border-color: #999;
+}
+
+
+/* --- فیلد Date Range --- */
+.date-range-filter input {
+  width: 140px; 
+  padding: 10px 15px; 
+  padding-right: 40px; 
+  background: none;
+  border: none;
+  color: #CED4DA;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.date-range-filter .icon-wrapper {
+  position: absolute;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  pointer-events: none; 
+  color: #CED4DA;
+}
+
+
+/* --- فیلد Weekly --- */
+.weekly-filter {
+  width: 100px; 
+  padding: 10px 15px;
+  padding-right: 10px; 
+}
+
+.weekly-filter select {
+  appearance: none; 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  
+  width: 100%;
+  background: none;
+  border: none;
+  color: #CED4DA;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-family: inherit;
+  font-weight: 500;
+  padding-right: 15px;
+}
+
+.weekly-filter .icon-wrapper {
+  position: absolute;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  color: #CED4DA;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+/* --- جدول پرداخت (Payment Table) --- */
+.payment-table-container {
+  background-color: #1F2128; 
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  max-height: 70vh; 
+  overflow-y: auto;
+}
+
+.payment-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: white;
+}
+
+/* هدر جدول */
+.table-header-row th {
+  background-color: #31333A;
+  padding: 15px 20px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 1rem;
+  position: sticky; 
+  top: 0;
+  z-index: 10;
+}
+
+/* ردیف‌های بدنه */
+.payment-table tbody tr td {
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.9rem;
+}
+
+/* استایل ردیف‌های زوج و فرد */
+.payment-table tbody .odd-row {
+  background-color: #24262E;
+}
+
+/* هاور روی ردیف */
+.payment-table tbody tr:hover {
+  background-color: #31333A;
+  cursor: pointer;
+}
