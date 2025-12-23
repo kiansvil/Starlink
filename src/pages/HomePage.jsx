@@ -1,6 +1,6 @@
-// HomePage.jsx (کد کامل و اصلاح شده)
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
     FaStar, FaSearch, FaHeart, FaChevronLeft, FaChevronRight, 
     FaFacebookF, FaTwitter, FaInstagram, FaImdb, FaSnapchatGhost, 
@@ -8,19 +8,31 @@ import {
 } from 'react-icons/fa';
 import './HomePage.css'; 
 
-// --- داده‌های کارت‌های پیشنهادی ---
+import '../components/Dashboard/FavoritesPage.css'
+import HeartIcon from '../assets/ICON.svg';
+import NotifIcon from '../assets/notif icon.svg';
+import emiliaImage from '../assets/emilia.jpg';
+import harryImage from '../assets/harry.png';
+import tomImage from '../assets/clark.jpg';
+import emilia2Image from '../assets/clarke.jpg';
+
+
+
 const recommendedStars = [
-    { name: "Emilia Clarke", role: "Actor", price: "$120", img: "https://i.ibb.co/3k5fHw9/emilia.jpg" },
-    { name: "Harry Styles", role: "Singer", price: "$178", img: "https://i.ibb.co/N21bHq0/harry.jpg" },
-    { name: "Iain Glen", role: "Actor", price: "$110", img: "https://i.ibb.co/Gdk09Xm/iain.jpg" },
-    { name: "Emma Watson", role: "Actor", price: "$145", img: "https://i.ibb.co/Tvn2qY5/emma.jpg" },
-    { name: "Taylor Swift", role: "Singer", price: "$200", img: "https://i.ibb.co/8Y2tS5M/taylor.jpg" },
-    { name: "Taylor Swift", role: "Singer", price: "$200", img: "https://i.ibb.co/8Y2tS5M/taylor.jpg" },
+    { name: "Emilia Clarke",
+         role: "Actor", 
+         price: "$120", 
+         imageUrl: emiliaImage},
+    { name: "Harry Styles", role: "Singer", price: "$178", imageUrl: harryImage },
+    { name: "Iain Glen", role: "Actor", price: "$110", imageUrl: emiliaImage},
+    { name: "Emma Watson", role: "Actor", price: "$145", imageUrl: emilia2Image},
+    { name: "Taylor Swift", role: "Singer", price: "$200", imageUrl: tomImage },
+    { name: "Taylor Swift", role: "Singer", price: "$200", imageUrl: emilia2Image},
 ];
 
-// --- ۱. کامپوننت Header ---
+
 const Header = ({ onNavigateToLogin }) => (
-  <header className="main-header">
+  <header  className="main-header">
       <div className="header-content"> 
           <div className="main-logo">
               <img src="src/assets/Frame 1394.svg" alt="" />
@@ -31,11 +43,11 @@ const Header = ({ onNavigateToLogin }) => (
               <input type="text" placeholder="Search" />
           </div>
           <div className="header-actions">
-              <button className="notification-btn">
-                  <FaBell className="bell-icon" />
-                  <span className="notification-badge">1</span>
-              </button>
-              <button className="login-btn" onClick={onNavigateToLogin}>Log in</button>
+          <button className="notification-btn">
+    <img src={NotifIcon} alt="Notification" className="bell-icon-svg" />
+    
+</button>  
+              <button className="login-btn" onClick={onNavigateToLogin}>Login</button>
           </div>
           </div>
           
@@ -43,7 +55,7 @@ const Header = ({ onNavigateToLogin }) => (
   </header>
 );
 
-// --- ۲. کامپوننت ProfileSection ---
+
 const ProfileSection = () => {
     const [minutes, setMinutes] = useState(5);
     const handleIncrement = () => setMinutes(prev => prev + 5);
@@ -54,23 +66,27 @@ const ProfileSection = () => {
             <div className="profile-info-column">
                 <div className="header-row">
                     <h1>Gal gadot</h1>
-                    <button className='heart-btn-top'><FaHeart /></button>
+                    <button className='heart-btn'>
+                        <img src={HeartIcon} alt="Heart Icon" className="custom-heart-icon" />
+                    </button>
                 </div>
                 <p className="subtitle">Actor / producer</p>
                 
                 <div className="carousel-container">
-                    <button className="nav-btn left"><FaChevronLeft /></button>
                     <div className="images-wrapper">
-                        <img src="https://i.ibb.co/Tvn2qY5/emma.jpg" alt="Main" className="main-img" />
-                        <img src="https://i.ibb.co/Tvn2qY5/emma.jpg" alt="Side" className="main-img" />
-                        <img src="https://i.ibb.co/Tvn2qY5/emma.jpg" alt="Side" className="side-img" />
+                        <img src="src/assets/image 28.png" alt="Main" className="main-img" />
+                        <img src="src/assets/avatar.png" alt="Main" className="main-img" />
+                        <img src="src/assets/avatar.png" alt="Side" className="side-img" />
                     </div>
-                    <button className="nav-btn right"><FaChevronRight /></button>
+                    <div className='image-nav-btn'>
+                        <button className="nav-btn left"><FaChevronLeft /></button>
+                        <button className="nav-btn right"><FaChevronRight /></button>
+                    </div>
                     <div className="dots"><span /><span className="active" /><span /></div>
                 </div>
 
                 <p className="bio-text">
-                    Iain Alan Sutherland Glen (born 24 June 1961) is a Scottish actor. Glen is best known for his roles as Dr. Alexander Isaacs/Tyrant.
+                Iain Alan Sutherland Glen (born 24 June 1961) is a Scottish actor.[2] Glen is best known for his roles as Dr. Alexander Isaacs/Tyrant in three films of the Resident Evil film series (2004–2016) and as Glen is best known for his roles as Dr.
                 </p>
 
                 <div className="social-media">
@@ -123,35 +139,49 @@ const ProfileSection = () => {
     );
 };
 
-// --- ۳. کامپوننت StarCard ---
+
 const StarCard = ({ star }) => (
-  <div className="star-card card-bg">
-      <div className="card-image-wrapper">
-          <img src={star.img} alt={star.name} className="star-image" />
-          <button className="card-heart-btn"><FaHeart /></button>
-          <div className="card-rating-overlay">
-              <FaStar className="star-icon active" />
-              <FaStar className="star-icon active" />
-              <FaStar className="star-icon active" />
-              <FaStar className="star-icon active" />
-              <FaStar className="star-icon half" />
-          </div>
-      </div>
-      <div className="card-details">
-          <div className="card-name-price-row">
-              <div className="star-info">
-              <p className="star-name-rec">
-                {star.name} <span className="star-role-rec">({star.role})</span>
-              </p>
-              </div>
-              <span className="card-price-tag">{star.price}</span>
-          </div>
-          <p className="star-bio-rec">Celebrity Bio. Short description about celebrity will be put here.</p>
-      </div>
-  </div>
+    <div className="favorite-card">
+
+    <div className="card-header">
+        <img src={star.imageUrl} alt={star.name} className="star-image" />
+        
+       
+        <div className="favorite-icon-overlay">
+            <button className="card-heart-btn" style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer' }}>
+                <FaHeart />
+            </button>
+        </div>
+
+       
+        <div className="cost-tag">{star.price}</div>
+
+    
+        <div className="rating-overlay-image">
+            <FaStar className="star-icon active" size={12} color="#FFD700" />
+            <FaStar className="star-icon active" size={12} color="#FFD700" />
+            <FaStar className="star-icon active" size={12} color="#FFD700" />
+            <FaStar className="star-icon active" size={12} color="#FFD700" />
+            <FaStar className="star-icon half" size={12} color="#FFD700" />
+        </div>
+    </div>
+
+    <div className="card-body">
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+            <div className="star-name-role">
+                <h3 className="star-name">{star.name}</h3>
+                <span className="star-role">({star.role})</span>
+            </div>
+            <span className="cost-tag-body">{star.price}</span>
+        </div>
+        
+        <p className="star-description">
+            Celebrity Bio. Short description about celebrity will be put here. This text will truncate after two lines.
+        </p>
+    </div>
+</div>
 );
 
-// --- ۴. کامپوننت RecommendedSection (این بخش را اضافه کردیم) ---
 const RecommendedSection = () => (
     <div className="recommended-section section-container">
         <h2 className="section-title">Recommended</h2>
@@ -170,7 +200,6 @@ const RecommendedSection = () => (
     </div>
 );
 
-// --- ۵. کامپوننت HowItWorks ---
 const HowItWorks = () => (
   <div className="how-it-works-section section-container">
       <div className="how-it-works-image-wrapper">
@@ -179,37 +208,48 @@ const HowItWorks = () => (
   </div>
 );
 
-// --- ۶. کامپوننت Footer ---
 const Footer = () => (
     <footer className="main-footer">
-        <div className="footer-left">
-            <div className="footer-logo">
-                <FaStar className="star-icon-footer" />
-                <span>Star link</span>
+    <div className="footer-container">
+        <div className="footer-top">
+            <div className="footer-brand-soshalt">
+                <div className="footer-logo">
+                    <FaStar className="star-icon-footer" />
+                    <span>Star link</span>
+                </div>
+                <div className="social-links">
+                    <a href="#"><FaFacebookF /></a>
+                    <a href="#"><FaTwitter /></a>
+                    <a href="#"><FaInstagram /></a>
+                </div>
             </div>
-            <div className="social-links">
-                <a href="#"><FaFacebookF /></a>
-                <a href="#"><FaTwitter /></a>
-                <a href="#"><FaInstagram /></a>
+            
+            <div className="footer-right">
+                <span className="ready-text">Ready to get started?</span>
+                <button className="gradient-btnn">Get started</button>
             </div>
+        </div>
+
+        <hr className="footer-divider" />
+
+        <div className="footer-bottom">
             <div className="footer-links">
                 <a href="#">Terms & Conditions</a>
-                <span> | </span>
                 <a href="#">FAQs</a>
             </div>
         </div>
-        <div className="footer-right">
-            <span className="ready-text">Ready to get started?</span>
-            <button className="gradient-btn">Get started</button>
-        </div>
-    </footer>
+    </div>
+</footer>
 );
 
-// --- کامپوننت اصلی ---
 function HomePage({ onNavigateToLogin }) { 
+    const navigate = useNavigate(); 
+
+  const handleLoginClick = () => {
+    navigate('/login'); };
   return (
     <div className="app-container">
-      <Header onNavigateToLogin={onNavigateToLogin} /> 
+     <Header onNavigateToLogin={handleLoginClick} />
       <ProfileSection />
       <RecommendedSection /> 
       <HowItWorks />

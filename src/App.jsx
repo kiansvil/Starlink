@@ -1,33 +1,40 @@
-import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import ResetPassword from './pages/Resetpassword'
+import ResetPassword from './pages/ResetPassword'
+import DashboardPage from './pages/DashboardPage'
 import './App.css'
 
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem('token')
+  return token ? children : <Navigate to="/login" />
+}
+
 function App() {
-  const [currentPage, setCurrentPage] = useState('home')
-
-  const renderPage = () => {
-    switch(currentPage) {
-      case 'home':
-        // ✅ تغییر اصلی: تابع ناوبری (setCurrentPage('login')) را به HomePage پاس می‌دهیم.
-        return <HomePage onNavigateToLogin={() => setCurrentPage('login')} /> 
-      case 'login':
-        return <Login onFormSwitch={setCurrentPage} />
-      case 'register':
-        return <Register onFormSwitch={setCurrentPage} />
-      case 'reset':
-        return <ResetPassword onFormSwitch={setCurrentPage} />
-      default:
-        return <HomePage onNavigateToLogin={() => setCurrentPage('login')} />
-    }
-  }
-
   return (
-    <div className="app">
-      {renderPage()}
-    </div>
+    <Router>
+      <div className="app">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          
+          <Route 
+            path="/dashboard" 
+            element={
+              <ProtectedRoute>
+                <DashboardPage />
+              </ProtectedRoute>
+            } 
+          />
+          
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </div>
+    </Router>
   )
 }
 

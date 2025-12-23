@@ -1,30 +1,27 @@
-/* App.css (تمام استایل‌ها در یک فایل) */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+
+  
 }
 
 body {
-  background: linear-gradient(180deg, #292C35 0%, #17181D 100%);
-  background-attachment: fixed; /* این خط باعث می‌شود بک‌گراند با اسکرول حرکت نکند و ثابت بماند */
+  background: #17181D !important;
   color: #ffffff;
-  font-family: 'Roboto', sans-serif;
   min-height: 100vh;
   margin: 0;
 }
 
-/* ------------------- Utility & Global Styles ------------------- */
 .section-container {
-  margin: 0 auto !important; /* اجبار به وسط‌چین شدن */
-  padding: 60px 20px 80px 20px !important;
-  display: block; /* اطمینان از اینکه فلکس‌باکس مزاحم وسط‌چین شدن نیست */
+  margin: 0 auto !important; 
+  padding: 10px;
+  display: block; 
 }
 
 .card-bg {
-    background-color: #202024;
     border-radius: 12px;
 }
 
@@ -50,41 +47,43 @@ h2 {
     opacity: 0.9;
 }
 
-/* App.css */
 .left-side-heder{
   display: flex;
   align-items: baseline;
+  margin: 0rem -3rem 0rem 0rem;
 }
-/* ------------------- Utility & Global Styles ------------------- */
-/* این کلاس گرادینت دکمه Log In را تعریف می‌کند */
+
 .login-btn {
-  background: linear-gradient(90deg, #53c0a5 0%, #308f9b 100%); 
+  background: linear-gradient(90deg, #8C68CD 0%, #17A2B8 100%); 
   border: none;
-  padding: 10px 25px; 
-  border-radius: 8px; /* گوشه‌های گرد */
+  width: 78px;
+  height: 35px;
+  padding: 10px ;
+  text-align: center;
+  border-radius: 5px; 
+  font-size: 14px;
   color: #fff;
   font-weight: 500;
   cursor: pointer;
-  font-size: 1rem;
   transition: opacity 0.3s;
 }
 
-/* ------------------- Header Styles ------------------- */
 .main-header {
-  background-color: #1a1a1e; /* رنگ تیره و قوی پس زمینه هدر */
+  background: #17181D;
   padding: 0; 
   width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* نوار آبی (header-top-bar) حذف شد */
 
 .header-content {
+  background: #17181D;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px; /* دقیقاً هم‌اندازه بخش‌های پایین */
-  margin: 0 auto;    /* وسط‌چین کردن */
-  padding: 15px 1%;  /* پدینگ دقیقا مشابه .section-container */
+  max-width: 1200px; 
+  margin: 0 auto;   
+  padding: 15px 1%; 
   width: 100%;
 }
 
@@ -98,9 +97,10 @@ h2 {
 }
 
 .main-logo{
+  margin: 0 0 0 -5rem ;
   display: flex;
   align-items: center;
-  font-size: 1.4rem; /* اندازه متن */
+  font-size: 1.4rem;
   font-weight: 700;
   color: #fff;
   white-space: nowrap;
@@ -115,24 +115,29 @@ h2 {
   height: 35px;
   width: 406px;
 }
+.search-bar input::placeholder {
+  color: white; 
+  opacity: 1;
+}
 
 .search-icon {
-  color: #999;
+  color: white;
   margin-right: 10px;
 }
 
-.search-bar input {
+.search-bar input{
   background: transparent;
   border: none;
-  color: #fff;
+  color: white !important;
   outline: none;
   width: 100%;
+  font-family: inherit;
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 6px;
 }
 
 .notification-btn {
@@ -161,7 +166,7 @@ h2 {
   line-height: 1;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
   .search-bar {
       display: none;
@@ -172,13 +177,12 @@ h2 {
   }
 }
 
-/* ------------------- Profile Section Styles ------------------- */
 .profile-main-container {
   display: flex;
-  justify-content: space-between; /* چسباندن دو ستون به دو طرف کادر */
+  justify-content: space-between; 
   align-items: flex-start;
   width: 100%;
-  gap: 30px; /* فاصله منطقی بین دو ستون */
+  gap: 30px; 
 }
 
 .profile-info-column {
@@ -221,11 +225,10 @@ h2 {
   font-size: 1.3rem;
 }
 
-/* Image Carousel */
 .carousel-container {
   position: relative;
   width: 100%;
-  max-width: 450px; /* یا هر عرضی که برای بخش عکس در نظر داری */
+  max-width: 450px; 
   margin: 0 auto;
 }
 
@@ -235,6 +238,7 @@ h2 {
   width: 100%;
   align-items: center;
   margin-left: -4.5rem;
+  margin-bottom: 2rem;
 }
 
 .images-wrapper img {
@@ -253,6 +257,13 @@ h2 {
     height: 277px;
     opacity: 0.5;
     filter: brightness(0.6);
+}
+
+.image-nav-btn{
+  display: flex;
+  position: relative;
+  bottom: 11rem;
+  margin: 0rem -5rem 0rem -5rem;
 }
 
 .nav-btn {
@@ -288,6 +299,7 @@ h2 {
 .dots {
     position: absolute;
     top: 18rem;
+    left: 13rem;
     display: flex;
     gap: 5px;
 }
@@ -307,12 +319,12 @@ h2 {
 
 .bio-text {
     color: #ccc;
+    padding: 0rem 5rem 0rem 0rem;
     line-height: 1.6;
     font-size: 0.9rem;
     margin-bottom: 30px;
 }
 
-/* Social Media */
 .social-media h3 {
     font-size: 1.2rem;
     margin-bottom: 15px;
@@ -354,26 +366,28 @@ h2 {
 }
 
 
-/* Booking Card (Right Side) */
-/* --- Global Utilities (ضروری برای این فرم) --- */
-
-/* پس زمینه کارت و گوشه‌های گرد */
 .card-bg {
   background-color: #202024; 
   border-radius: 12px;
 }
 
-/* استایل دکمه‌های گرادینتی (Book Now) */
+
 .gradient-btn {
-  background: linear-gradient(90deg, #8b5cf6 0%, #06b6d4 100%);
+  background: linear-gradient(90deg, #06b6d4 0%,  #8b5cf6 100%);
   color: #fff;
   border: none;
   cursor: pointer;
   transition: opacity 0.3s, transform 0.1s;
+  
+}
+.gradient-btnn{
+  background: linear-gradient(90deg, #06b6d4 0%,  #8b5cf6 100%);
+  border-radius: 8px;
+  font-size: 14px;
+  padding: 12px 25px;
+  color: black;
 }
 
-
-/* ------------------- Booking Card (Set Meeting) Styles ------------------- */
 .main-booking-card{
   margin: -1rem 0 0 0;
 }
@@ -383,7 +397,7 @@ h2 {
   margin-top: 20px;
   padding: 30px;
   width: 417px;
-  margin: 25px 65px 0 0;
+  margin: 40px 65px 0 0;
   border-radius: 4px;
   height: 560px;
   color: #6C757D;
@@ -402,7 +416,6 @@ h2 {
   margin-bottom: 20px; 
 }
 
-/* استایل لیبل (شامل عنوان و آیکون اطلاعات) */
 .form-group label {
   display: flex;
   align-items: center;
@@ -412,11 +425,10 @@ h2 {
 }
 
 .info-icon {
-  color: #555; /* رنگ آیکون اطلاعات */
+  color: #555; 
   font-size: 0.9rem;
 }
 
-/* کادر ورودی شمارنده (1. Set meeting Minuts) */
 .counter-input, .date-input-wrapper, .time-input-wrapper {
   border: 1px solid #6C757D;
   border-radius: 4px;
@@ -445,11 +457,10 @@ h2 {
   padding: 0px 0px ;
 }
 
-/* کادر ورودی تاریخ و زمان (2. Day & 3. Time frame) */
 .date-input-wrapper input, .time-input-wrapper input {
   background: transparent;
   border: none;
-  color: #CED4DA; /* رنگ متن ورودی */
+  color: #CED4DA; 
   font-size: 1rem;
   width: 100%;
   outline: none;
@@ -457,25 +468,22 @@ h2 {
 }
 
 .input-icon {
-  color: #aaa; /* رنگ آیکون تقویم و ساعت */
+  color: #aaa; 
 }
 
-/* متن سلب مسئولیت */
 .disclaimer {
-  color: #ffd700; /* رنگ زرد */
+  color: #ffd700; 
   font-size: 0.75rem;
   margin-top: 10px;
   margin-bottom: 20px;
 }
 
-/* جداکننده خط افقی */
 .divider {
   border: 0;
   border-top: 1px solid #333;
   margin-bottom: 20px;
 }
 
-/* بخش پرداخت نهایی */
 .total-payment {
   display: flex;
   align-items: center;
@@ -494,28 +502,19 @@ h2 {
   color: #fff;
 }
 
-/* دکمه Book Now */
 .book-btn {
   width: 100%;
   padding: 15px;
   border-radius: 4px;
   font-size: 1.1rem;
-  /* از کلاس gradient-btn استفاده می‌شود */
 }
 
-/* ------------------- Recommended Section Styles ------------------- */
-/* App.css */
-
-/* ------------------- Recommended Section Styles (بازنویسی شده) ------------------- */
-/* --- استایل عمومی کارت‌ها --- */
 .card-bg {
   background-color: #202024;
   border-radius: 12px;
 }
 
-/* --- بخش Set Meeting (شفافیت ۱۵٪ مطابق خواسته شما) --- */
 
-/* رفع مشکل کادر دور دکمه‌های مثبت و منفی */
 .counter-input button {
   background: none;
   border: none;
@@ -526,22 +525,42 @@ h2 {
   box-shadow: none !important;
 }
 
-/* --- بخش Recommended (طراحی دقیق مطابق عکس) --- */
+
 .recommended-section h2 {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 40px;
+ 
 }
+.recommended-section{
+  background: #17181D;
 
+}
 .stars-grid {
   display: flex;
   gap: 15px;
   overflow-x: auto;
   padding-bottom: 20px;
+  position: relative;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, 
+        transparent 0%, 
+        black 15%, 
+        black 85%, 
+        transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(to right, 
+        transparent 0%, 
+        black 15%, 
+        black 85%, 
+        transparent 100%
+    );
 }
 
+
+
 .stars-grid::-webkit-scrollbar {
-  display: none; /* مخفی کردن اسکرول بار */
+  display: none; 
 }
 
 .star-card {
@@ -549,6 +568,7 @@ h2 {
   height: 386px;
   flex-shrink: 0;
   overflow: hidden;
+
   transition: 0.3s;
 }
 
@@ -564,7 +584,6 @@ h2 {
   border-radius: 15px 15px 0 0;
 }
 
-/* دکمه قلب روی تصویر */
 .card-heart-btn {
   position: absolute;
   top: 15px;
@@ -581,7 +600,6 @@ h2 {
   cursor: pointer;
 }
 
-/* ستاره‌های روی تصویر */
 .card-rating-overlay {
   position: absolute;
   bottom: 15px;
@@ -591,11 +609,11 @@ h2 {
 
 .card-rating-overlay .star-icon {
   font-size: 0.8rem;
-  color: #555; /* ستاره خالی */
+  color: #555; 
 }
 
 .card-rating-overlay .star-icon.active {
-  color: #ffc107; /* ستاره پر - زرد */
+  color: #ffc107; 
 }
 
 .card-rating-overlay .star-icon.half {
@@ -603,9 +621,9 @@ h2 {
   opacity: 0.6;
 }
 
-/* بخش توضیحات زیر تصویر */
+
 .card-details {
-  padding: 15px;
+  padding: 1rem;
 }
 
 .card-name-price-row {
@@ -627,7 +645,6 @@ h2 {
   font-size: 0.8rem;
 }
 
-/* باکس قیمت گرادینتی (فیروزه‌ای به بنفش مطابق عکس) */
 .card-price-tag {
   background: linear-gradient(90deg, #308f9b 0%, #8b5cf6 100%);
   color: white;
@@ -645,12 +662,11 @@ h2 {
   overflow: hidden;
 }
 
-/* دکمه‌های چپ و راست کل بخش */
 .nav-buttons-wrapper {
   display: flex;
-  gap: 50px; /* فاصله بین دو دکمه */
-  justify-content: center; /* بردن دکمه‌ها به سمت راست */
-  margin-bottom: 15px; /* فاصله از کارت‌های پایین */
+  gap: 50px; 
+  justify-content: center; 
+  margin-bottom: 15px; 
 }
 
 .rec-nav-btn {
@@ -672,14 +688,8 @@ h2 {
   background: #333;
 }
 
-
-/* استایل‌های جهت نما (اگر می‌خواهید نمایش داده شوند) */
-
-
-/* ------------------- How It Works Styles ------------------- */
-/* ------------------- How It Works Styles (بازنویسی شده برای عکس) ------------------- */
 .how-it-works-section {
-  background-color: #1a1a1e;
+  background: #17181D !important;
   padding: 80px 5%;
   position: relative;
   overflow: hidden;
@@ -690,81 +700,109 @@ h2 {
   justify-content: center;
   align-items: center;
   width: 100%;
+
 }
 
 .how-it-works-image {
-  max-width: 900px; /* حداکثر عرض برای تصویر */
+  max-width: 900px; 
   width: 100%;
   height: auto;
   border-radius: 10px;
   object-fit: contain;
 }
 
-/* ------------------- Responsive Styles (اصلاح شده برای حذف استایل‌های قدیمی How It Works) ------------------- */
 @media (max-width: 768px) {
-  /* ... (بقیه استایل‌های ریسپانسیو) ... */
-  
-  /* حذف استایل‌های قدیمی مراحل که دیگر نیازی به آن‌ها نیست */
-  
+
   
   .illustration-wrapper {
       display: none; 
   }
 }
-/* ------------------- Footer Styles ------------------- */
+
 .main-footer {
-    background-color: #16161a;
-    border-top: 1px solid #333;
-    padding: 30px 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin: 0 auto;
+  background-color: #6C757D26 !important; 
+  padding: 60px 0 40px 0;
+  width: 100%;
+  height: 16rem;
 }
 
-.footer-left {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    flex-wrap: wrap;
+.footer-container {
+
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.footer-brand-soshalt {
+  display: flex;
+  align-items: center;
+  gap: 40px; 
 }
 
 .footer-logo {
-    font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.social-links {
+  display: flex;
+  gap: 20px;
 }
 
 .social-links a {
-    color: #fff;
-    margin-right: 15px;
-    font-size: 1.1rem;
-    transition: color 0.3s;
-}
-
-.social-links a:hover {
-    color: #8b5cf6;
-}
-
-.footer-links a, .footer-links span {
-    color: #aaa;
-    font-size: 0.8rem;
-    text-decoration: none;
-    margin: 0 5px;
+  color: #fff;
+  font-size: 1.2rem;
+  transition: 0.3s;
 }
 
 .footer-right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
 }
 
 .ready-text {
-    font-size: 0.9rem;
-    color: #fff;
+  font-size: 1.3rem; 
+  color: #fff;
 }
 
-/* ------------------- Responsive Styles ------------------- */
+.footer-divider {
+  border: none;
+  border-top: 1px solid #74C7D4;
+  margin: 20px 0;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.footer-links {
+  display: flex;
+  gap: 30px;
+}
+
+.footer-links a {
+  color: #CED4DA;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-links a:hover {
+  color: #fff;
+}
+
 @media (max-width: 1024px) {
     .search-bar {
         width: 300px;
@@ -819,6 +857,6 @@ h2 {
         width: 80%;
     }
     .illustration-wrapper {
-        display: none; /* مخفی کردن خطوط و تصاویر دیاگرام در موبایل */
+        display: none; 
     }
 }
